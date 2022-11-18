@@ -466,7 +466,7 @@ class EpicAwesomeGamer:
             with suppress(NinjaError):
                 if window == "free":
                     fl = page.frame_locator(ArmorKnight.HOOK_PURCHASE)
-                    return fl.locator(ArmorKnight.HOOK_CHALLENGE).is_visible()
+                    return fl.locator(ArmorKnight.HOOK_CHALLENGE).wait_for(state="visible")
                 return page.locator(ArmorKnight.HOOK_PURCHASE).is_visible()
 
         if fall_in_captcha_runtime():
@@ -495,7 +495,7 @@ class EpicAwesomeGamer:
             url_login = f"https://www.epicgames.com/id/login?lang=zh-CN&noHostRedirect=true&redirectUrl={url_claim}"
             try:
                 page.goto(url_store, wait_until="domcontentloaded")
-                page.goto(url_claim, wait_until="load")
+                page.goto(url_claim, wait_until="domcontentloaded")
             except NinjaTimeout:
                 page.reload(wait_until="domcontentloaded")
             with suppress(NinjaTimeout):

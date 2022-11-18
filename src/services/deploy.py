@@ -299,10 +299,9 @@ class GameClaimerInstance(BaseInstance):
         def run(context: BrowserContext):
             context.storage_state(path=self.bricklayer.cookie_manager.path_ctx_cookies)
             promotions = self.preload()
-            page = context.new_page()
             for promotion in promotions:
                 self.bricklayer.promotion_url2title[promotion.url] = promotion.title
-                result = empower_games_claimer(self.bricklayer, promotion.url, page, pattern="get")
+                result = empower_games_claimer(self.bricklayer, promotion.url, context.new_page(), pattern="get")
                 self._push_pending_message(result=result, promotion=promotion)
                 recur_order_history(result, promotion)
 
